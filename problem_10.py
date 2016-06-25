@@ -4,12 +4,16 @@ def is_prime(n):
 
     prime_factors = []
     while (n % 2 == 0 and len(prime_factors) < 3):
+        if (len(prime_factors) == 1):
+            return False
         prime_factors.append(2)
         n //= 2
 
     p = 3
     while (n > 1 and len(prime_factors) < 3):
         if (n % p == 0):
+            if (len(prime_factors) == 1):
+                return False
             prime_factors.append(p)
             n //= p
         else:
@@ -17,17 +21,14 @@ def is_prime(n):
 
     return len(prime_factors) == 1
 
-# returns the nth prime assuming n > 1
-def nth_prime(n):
-    num_primes = 2
-    cur_p = 3
+def sum_primes(upper_limit):
+    if upper_limit == 2:
+        return 2
+    total = 5
+    for p in range(5, upper_limit, 2):
+        if is_prime(p):
+            total += p
+    return total
 
-    while (num_primes < n):
-        cur_p += 2
-        while (!is_prime(cur_p)):
-            cur_p += 2
-        num_primes += 1
 
-    return cur_p
-
-print(nth_prime(10001))
+print(sum_primes(2000000))
