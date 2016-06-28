@@ -34,14 +34,18 @@ cols = len(grid[0])
 max_prod = 0
 for row in range(rows-4):
     for col in range(cols):
-        # get horizontal
-        if (col < cols-4):
-            total = prod(grid[row][col:col+4])
-            max_prod = total if total > max_prod else max_prod
-        # get vertical
-        if (row < rows-4):
-            total = prod([r[col] for r in grid[row:row+4]])
-            max_prod = total if total > max_prod else max_prod
-        # get right diag
+        horizontal = vertical = r_diag = l_diag = 0
 
-        # get left diag
+        if (col < cols-4):
+            horizontal = prod([grid[row][c] for c in range(col, col+4)])
+            if (row < rows-4):
+                r_diag = prod([grid[row+i][col+i] for i in range(4)])
+
+        if (row < rows-4):
+            vertical = prod([grid[r][col] for r in range(row, row+4)])
+            if (col < cols-4):
+                l_diag = prod([grid[row+i][col-i] for i in range(4)])
+
+        max_prod = max(max_prod, horizontal, vertical, r_diag, l_diag)
+
+print(max_prod)
