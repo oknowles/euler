@@ -15,6 +15,7 @@ def prime_factors(n):
 
     return prime_factors
 
+# makes use of a trick to count the exponents of all prime factors and multiply their incremented values together
 def num_factors(n):
     p_factors = prime_factors(n)
     prev_p = p_factors[0]
@@ -27,7 +28,6 @@ def num_factors(n):
             total_factors *= (count+1)
             prev_p = p
             count = 1
-
     return total_factors*(count+1)
 
 t = 5000
