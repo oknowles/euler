@@ -24,12 +24,21 @@ for line in triangle_string.splitlines():
 # tree: the whole tree
 # cur_node: 2d coordinates representing level of tree and position of cur_node in level
 # cur_path_len: length of path from global root of tree to cur_node
-def greedy_bfs(tree, cur_node, cur_path_len):
-    if len(cur_node) == 0:
-        return cur_path_len
-
+#
+# returns the maximum path length from root to leaf
+#
+def greedy_max_path(tree, cur_node, cur_path_len):
     cur_node_level = cur_node[0]
     cur_node_pos = cur_node[1]
+    cur_node_val = tree[cur_node_level][cur_node_pos]
 
-    if (cur_node_level < len(tree)):
-        children = [tree[cur_node_level+1][cur_node_pos], tree[cur_node_level+1][cur_node_pos+1]]
+    # cur_node is not a leaf node
+    if (cur_node_level < len(tree)-1):
+        children = [[cur_node_level+1, cur_node_pos], [cur_node_level+1, cur_node_pos+1]]
+        new_path_len = cur_path_len + cur_node_val
+        return max(greedy_max_path(tree, children[0], new_path_len), greedy_max_path(tree, children[1], new_path_len))
+    # cur_node is a leaf node
+    else:
+        return cur_path_len + cur_node_val
+
+print(greedy_max_path(triangle, [0,0], 0))
