@@ -41,8 +41,7 @@ def get_written_form(n):
 
             tens_num = int(str(cur_digit) + str(digits[i+1]))
             if (tens_num in num_map):
-                written_form += num_map[tens_num] + ' '
-                return written_form
+                return written_form + num_map[tens_num] + ' '
             elif (cur_digit != 0):
                 written_form += num_map[cur_digit*10] + ' '
         elif (num_zeros == 0) and (cur_digit != 0):
@@ -55,7 +54,6 @@ def get_written_form(n):
 
 countable_words = ''
 for i in range(1,1001):
-    print(get_written_form(i))
     countable_words += get_written_form(i).replace(' ','')
 
 print(len(countable_words))
