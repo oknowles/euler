@@ -1,34 +1,12 @@
-# resuses same methods in problem 12
-def prime_factors(n):
-    prime_factors = []
+def sum_divisors(n):
+    return sum([i for i in range(1, (n / 2) + 1) if (n % i == 0)])
 
-    while (n % 2 == 0):
-        prime_factors.append(2)
-        n //= 2
+def find_amicable_pairs(upper_bound):
+    amicable_pairs = []
+    for x in range(1,upper_bound):
+        y = sum_divisors(x)
+        if (x < y) and (sum_divisors(y) == x):
+            amicable_pairs.append([x,y])
+    return amicable_pairs
 
-    p = 3
-    while (n > 1):
-        if (n % p == 0):
-            prime_factors.append(p)
-            n //= p
-        else:
-            p += 2
-
-    return prime_factors
-
-def num_factors(n):
-    p_factors = prime_factors(n)
-    prev_p = p_factors[0]
-    count = 0
-    total_factors = 1
-    for p in p_factors:
-        if p == prev_p:
-            count += 1
-        else:
-            total_factors *= (count+1)
-            prev_p = p
-            count = 1
-    return total_factors*(count+1)
-
-def amicable_numbers(x, y):
-    return (x != y) and (num_factors(x) == y) and (num_factors(y) == x)
+print sum([sum(l) for l in find_amicable_pairs(10000)])
